@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Movie</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #121212;
+      color: #e0e0e0;
+      font-family: 'Arial';
+    }
+    .editcontainer {
+      background: #1e1e1e;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 30px auto;
+      border: 1px solid #333;
+    }
+    .movieposter {
+      max-height: 300px;
+      width: 100%;
+      object-fit: contain;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .inputfield {
+      background: #2d2d2d;
+      color: white;
+      border: 1px solid #444;
+    }
+    .inputfield:focus {
+      background: #3d3d3d;
+      color: white;
+    }
+    .formlabel {
+      color: #ffcc00;
+      margin-top: 10px;
+    }
+    .updatebtn {
+      background: #ffcc00;
+      color: black;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">🎬 MovieFlix</a>
+      <a href="/" class="btn btn-danger">Home</a>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="editcontainer">
+      <h2 class="text-center mb-4">Edit Movie</h2>
+      
+      <img src="<%= movie.poster %>" class="movieposter">
+      
+      <form method="post" action="/updatemovie/<%= movie._id %>" enctype="multipart/form-data">
+        
+        <div class="mb-3">
+          <label class="formlabel">Movie Name</label>
+          <input type="text" name="name" class="form-control inputfield" value="<%= movie.name %>" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">Rating</label>
+          <input type="text" name="rating" class="form-control inputfield" value="<%= movie.rating %>" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">Language</label>
+          <div class="d-flex gap-3">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="language" value="hindi" id="hindi" 
+                <%= movie.language === 'hindi' ? 'checked' : '' %>>
+              <label class="form-check-label" for="hindi">Hindi</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="language" value="english" id="english"
+                <%= movie.language === 'english' ? 'checked' : '' %>>
+              <label class="form-check-label" for="english">English</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">Genre</label>
+          <div class="d-flex flex-wrap gap-3">
+            <% const allgenres = ['Action', 'Comedy', 'Drama', 'Sci-Fi']; %>
+            <% allgenres.forEach(genre => { %>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="genre" value="<%= genre %>" id="<%= genre.toLowerCase() %>"
+                  <%= movie.genre.includes(genre) ? 'checked' : '' %>>
+                <label class="form-check-label" for="<%= genre.toLowerCase() %>"><%= genre %></label>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">Release Date</label>
+          <input type="date" name="releasedate" class="form-control inputfield" 
+            value="<%= movie.releasedate.toISOString().split('T')[0] %>" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">City</label>
+          <select name="city" class="form-select inputfield" required>
+            <% const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad']; %>
+            <% cities.forEach(city => { %>
+              <option value="<%= city %>" <%= movie.city === city ? 'selected' : '' %>><%= city %></option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">Cast</label>
+          <input type="text" name="cast" class="form-control inputfield" value="<%= movie.actors %>" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="formlabel">Update Poster</label>
+          <input type="file" name="poster" class="form-control inputfield" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn updatebtn w-100">Update Movie</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
