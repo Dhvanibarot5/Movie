@@ -1,165 +1,192 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Edit Movie</title>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      color: #f1f1f1;
+      margin: 0;
+      background: linear-gradient(to right, #141e30, #243b55);
       font-family: 'Segoe UI', sans-serif;
+      color: #fff;
       min-height: 100vh;
+      padding: 30px 15px;
     }
 
-    .editcontainer {
+    .edit-wrapper {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px;
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 700px;
-      margin: 50px auto;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .movieposter {
-      max-height: 300px;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      border: 1px solid #555;
+    .edit-wrapper h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: bold;
+      color: #00d4ff;
     }
 
-    .formlabel {
-      color: #ffcc00;
-      margin-top: 10px;
+    label {
+      margin-top: 15px;
+      margin-bottom: 5px;
       font-weight: 500;
+      color: #f0db4f;
     }
 
-    .inputfield, .form-select {
-      background: rgba(255, 255, 255, 0.1);
+    .form-control, .form-select {
+      background-color: rgba(255, 255, 255, 0.1);
       border: none;
       color: #fff;
       padding: 10px;
-      border-radius: 6px;
-    }
-
-    .inputfield:focus, .form-select:focus {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      outline: none;
-      box-shadow: 0 0 0 2px #ffcc00;
-    }
-
-    .updatebtn {
-      background: #ffcc00;
-      color: #000;
-      font-weight: bold;
-      padding: 12px;
       border-radius: 8px;
-      margin-top: 25px;
-      transition: 0.3s ease;
     }
 
-    .updatebtn:hover {
-      background: #ffdd33;
+    .form-control:focus, .form-select:focus {
+      box-shadow: 0 0 5px #00d4ff;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #fff;
     }
 
-    .navbar {
-      background: #000 !important;
-      border-bottom: 2px solid #ffcc00;
+    .movieposter {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 2px solid #00d4ff;
     }
 
     .form-check-label {
       font-weight: 400;
+      margin-right: 15px;
+    }
+
+    .btn-update {
+      width: 100%;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      border: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #fff;
+      margin-top: 30px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .btn-update:hover {
+      background: linear-gradient(to right, #00b4db, #0083b0);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 198, 255, 0.3);
+    }
+
+    .navbar {
+      background: #000;
+      border-bottom: 2px solid #00d4ff;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      color: #00d4ff !important;
+    }
+
+    .btn-home {
+      background-color: #ff4757;
+      color: white;
+      font-weight: 600;
+    }
+
+    .btn-home:hover {
+      background-color: #ff6b81;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-dark px-4">
+
+  <nav class="navbar navbar-dark px-4 mb-4">
     <div class="container-fluid d-flex justify-content-between align-items-center">
       <a class="navbar-brand" href="#">🎬 MovieFlix</a>
-      <a href="/" class="btn btn-danger">Home</a>
+      <a href="/" class="btn btn-home">🏠 Home</a>
     </div>
   </nav>
 
-  <div class="container">
-    <div class="editcontainer">
-      <h2 class="text-center mb-4">Edit Movie</h2>
-      
-      <img src="<%= movie.poster %>" class="movieposter" alt="Poster">
-      
-      <form method="post" action="/updatemovie/<%= movie._id %>" enctype="multipart/form-data">
-        <div class="mb-3">
-          <label class="formlabel">Movie Name</label>
-          <input type="text" name="name" class="form-control inputfield" value="<%= movie.name %>" required>
-        </div>
+  <div class="edit-wrapper">
+    <h2>✏️ Edit Movie</h2>
 
-        <div class="mb-3">
-          <label class="formlabel">Rating</label>
-          <input type="text" name="rating" class="form-control inputfield" value="<%= movie.rating %>" required>
-        </div>
+    <img src="<%= movie.poster %>" alt="Poster" class="movieposter" />
 
-        <div class="mb-3">
-          <label class="formlabel">Language</label>
-          <div class="d-flex gap-4">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="language" value="hindi" id="hindi" <%= movie.language === 'hindi' ? 'checked' : '' %>>
-              <label class="form-check-label" for="hindi">Hindi</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="language" value="english" id="english" <%= movie.language === 'english' ? 'checked' : '' %>>
-              <label class="form-check-label" for="english">English</label>
-            </div>
+    <form method="POST" action="/updatemovie/<%= movie._id %>" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label>Movie Name</label>
+        <input type="text" name="name" class="form-control" value="<%= movie.name %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Rating</label>
+        <input type="text" name="rating" class="form-control" value="<%= movie.rating %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Language</label><br />
+        <div class="d-flex gap-4">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="language" value="hindi" id="hindi" <%= movie.language === 'hindi' ? 'checked' : '' %> />
+            <label class="form-check-label" for="hindi">Hindi</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="language" value="english" id="english" <%= movie.language === 'english' ? 'checked' : '' %> />
+            <label class="form-check-label" for="english">English</label>
           </div>
         </div>
+      </div>
 
-        <div class="mb-3">
-          <label class="formlabel">Genre</label>
-          <div class="d-flex flex-wrap gap-3">
-            <% const allgenres = ['Action', 'Comedy', 'Drama', 'Sci-Fi']; %>
-            <% allgenres.forEach(genre => { %>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="genre" value="<%= genre %>" id="<%= genre.toLowerCase() %>"
-                  <%= movie.genre.includes(genre) ? 'checked' : '' %>>
-                <label class="form-check-label" for="<%= genre.toLowerCase() %>"><%= genre %></label>
-              </div>
-            <% }); %>
-          </div>
+      <div class="mb-3">
+        <label>Genre</label>
+        <div class="d-flex flex-wrap gap-3">
+          <% const allgenres = ['Action', 'Comedy', 'Drama', 'Sci-Fi']; %>
+          <% allgenres.forEach(genre => { %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="genre" value="<%= genre %>" id="<%= genre.toLowerCase() %>"
+                <%= movie.genre.includes(genre) ? 'checked' : '' %> />
+              <label class="form-check-label" for="<%= genre.toLowerCase() %>"><%= genre %></label>
+            </div>
+          <% }); %>
         </div>
+      </div>
 
-        <div class="mb-3">
-          <label class="formlabel">Release Date</label>
-          <input type="date" name="releasedate" class="form-control inputfield"
-            value="<%= movie.releasedate.toISOString().split('T')[0] %>" required>
-        </div>
+      <div class="mb-3">
+        <label>Release Date</label>
+        <input type="date" name="releasedate" class="form-control"
+          value="<%= movie.releasedate.toISOString().split('T')[0] %>" required>
+      </div>
 
-        <div class="mb-3">
-          <label class="formlabel">City</label>
-          <select name="city" class="form-select inputfield" required>
-            <% const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad']; %>
-            <% cities.forEach(city => { %>
-              <option value="<%= city %>" <%= movie.city === city ? 'selected' : '' %>><%= city %></option>
-            <% }); %>
-          </select>
-        </div>
+      <div class="mb-3">
+        <label>City</label>
+        <select name="city" class="form-select" required>
+          <% const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Hyderabad']; %>
+          <% cities.forEach(city => { %>
+            <option value="<%= city %>" <%= movie.city === city ? 'selected' : '' %>><%= city %></option>
+          <% }); %>
+        </select>
+      </div>
 
-        <div class="mb-3">
-          <label class="formlabel">Cast</label>
-          <input type="text" name="cast" class="form-control inputfield" value="<%= movie.actors %>" required>
-        </div>
+      <div class="mb-3">
+        <label>Cast</label>
+        <input type="text" name="cast" class="form-control" value="<%= movie.actors %>" required>
+      </div>
 
-        <div class="mb-3">
-          <label class="formlabel">Update Poster</label>
-          <input type="file" name="poster" class="form-control inputfield" accept="image/*">
-        </div>
+      <div class="mb-3">
+        <label>Update Poster</label>
+        <input type="file" name="poster" class="form-control" accept="image/*" />
+      </div>
 
-        <button type="submit" class="btn updatebtn w-100">💾 Update Movie</button>
-      </form>
-    </div>
+      <button type="submit" class="btn btn-update">💾 Update Movie</button>
+    </form>
   </div>
 
   <script src="/js/bootstrap.bundle.min.js"></script>

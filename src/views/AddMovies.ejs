@@ -1,146 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Add New Movie</title>
-  <link href="/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    body {
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add New Movie</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      body {
+        background: linear-gradient(to right, #141e30, #243b55);
+        font-family: "Segoe UI", sans-serif;
+        color: #333;
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-    .navbar {
-      background-color: rgba(0, 0, 0, 0.8);
-      border-bottom: 2px solid #00bcd4;
-    }
+      .form-card {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 700px;
+        width: 100%;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
 
-    .form-container {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 35px;
-      border-radius: 16px;
-      margin: 50px auto;
-      max-width: 700px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
+      .form-card h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #243b55;
+      }
 
-    .form-label {
-      color: #00bcd4;
-      font-weight: 500;
-      margin-bottom: 6px;
-    }
+      label.form-label {
+        font-weight: 500;
+        margin-bottom: 16px !important;
+      }
 
-    .form-control, .form-select {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: #fff;
-      border-radius: 8px;
-      padding: 10px;
-    }
+      .form-control,
+      .form-select {
+        border-radius: 8px;
+        padding: 10px;
+      }
 
-    .form-control:focus, .form-select:focus {
-      background-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 0 2px #00bcd4;
-      color: #fff;
-    }
+      .form-check-label {
+        font-weight: 400;
+      }
 
-    .form-check-label {
-      font-weight: 400;
-      color: #ddd;
-    }
+      .btn-submit {
+        background-color: #243b55;
+        color: white;
+        font-weight: 600;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        width: 100%;
+        margin-top: 20px;
+        transition: 0.3s;
+      }
 
-    .btn-submit {
-      background: #00bcd4;
-      border: none;
-      color: #000;
-      font-weight: bold;
-      padding: 12px;
-      border-radius: 10px;
-      width: 100%;
-      margin-top: 20px;
-      transition: 0.3s;
-    }
+      .btn-submit:hover {
+        background-color: #1e2d45;
+      }
 
-    .btn-submit:hover {
-      background-color: #1de9b6;
-    }
+      .top-links {
+        position: absolute;
+        top: 20px;
+        left: 30px;
+      }
 
-    h2 {
-      text-align: center;
-      color: #ffffff;
-      margin-bottom: 30px;
-    }
-  </style>
-</head>
-<body>
+      .navbar-brand {
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+      }
 
-  <nav class="navbar navbar-expand-lg navbar-dark px-4">
-    <a class="navbar-brand" href="#">🎬 MovieFlix</a>
-    <div class="ms-auto">
-      <a href="/" class="btn btn-outline-light btn-sm">Home</a>
+      .nav-link {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 15px;
+        padding: 6px 12px;
+        border: 1px solid #fff;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      .nav-link:hover {
+        background-color: #fff;
+        color: #243b55;
+      }
+
+      @media (max-width: 768px) {
+        .form-card {
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-links">
+      <a href="#" class="navbar-brand">🎬 MovieFlix</a>
+      <a href="/" class="nav-link">Home</a>
     </div>
-  </nav>
 
-  <div class="container">
-    <div class="form-container">
+    <div class="form-card">
       <h2>🎥 Add New Movie</h2>
-      <form method="post" action="/addmovie" enctype="multipart/form-data">
+      <form method="POST" action="/addmovie" enctype="multipart/form-data">
         <div class="mb-3">
-          <label class="form-label">Movie Name</label>
+          <label class="form-label mt-3">Movie Name</label>
           <input type="text" name="name" class="form-control" required />
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Rating</label>
+          <label class="form-label mt-3">Rating</label>
           <input type="text" name="rating" class="form-control" required />
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Language</label><br />
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="language" value="hindi" id="langHindi" />
-            <label class="form-check-label" for="langHindi">Hindi</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="language" value="english" id="langEnglish" />
-            <label class="form-check-label" for="langEnglish">English</label>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Genre</label><br />
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="genre" value="Action" id="genreAction" />
-            <label class="form-check-label" for="genreAction">Action</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="genre" value="Comedy" id="genreComedy" />
-            <label class="form-check-label" for="genreComedy">Comedy</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="genre" value="Drama" id="genreDrama" />
-            <label class="form-check-label" for="genreDrama">Drama</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="genre" value="Sci-Fi" id="genreScifi" />
-            <label class="form-check-label" for="genreScifi">Sci-Fi</label>
+          <label class="form-label mt-3 d-block">Language</label>
+          <div class="row">
+            <div class="col-auto">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="language" value="hindi" id="langHindi" />
+                <label class="form-check-label" for="langHindi">Hindi</label>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="language" value="english" id="langEnglish" />
+                <label class="form-check-label" for="langEnglish">English</label>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Release Date</label>
+          <label class="form-label mt-3 d-block">Genre</label>
+          <div class="row">
+            <% const genres = ['Action', 'Comedy', 'Drama', 'Sci-Fi']; %> <% genres.forEach((g, i) => { %>
+            <div class="col-auto">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="genre" value="<%= g %>" id="genre<%= i %>" />
+                <label class="form-check-label" for="genre<%= i %>"><%= g %></label>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label mt-3">Release Date</label>
           <input type="date" name="releasedate" class="form-control" required />
         </div>
 
         <div class="mb-3">
-          <label class="form-label">City</label>
+          <label class="form-label mt-3">City</label>
           <select name="city" class="form-select" required>
             <option value="">Select City</option>
             <option value="Mumbai">Mumbai</option>
@@ -151,20 +167,19 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Cast</label>
+          <label class="form-label mt-3">Cast</label>
           <input type="text" name="actors" class="form-control" placeholder="Actor 1, Actor 2,..." required />
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Movie Poster</label>
+          <label class="form-label mt-3">Movie Poster</label>
           <input type="file" name="poster" class="form-control" accept="image/*" required />
         </div>
 
-        <button type="submit" class="btn btn-submit">➕ Add Movie</button>
+        <button type="submit" class="btn btn-submit mt-4">➕ Add Movie</button>
       </form>
     </div>
-  </div>
 
-  <script src="/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
