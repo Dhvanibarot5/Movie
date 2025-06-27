@@ -6,63 +6,120 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: #0a0a12;
-            color: #e0e0e0;
-            font-family: 'Arial';
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Segoe UI', sans-serif;
         }
-        .moviecard {
-            background: #1a1a2e;
-            border-radius: 8px;
-            transition: 0.3s;
-            border: 1px solid #33334d;
+
+        .navbar {
+            background: #161b22;
+            border-bottom: 2px solid #238636;
         }
-        .moviecard:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 200, 0, 0.2);
-        }
-        .movieposter {
-            height: 300px;
-            object-fit: cover;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-        .addbutton {
-            background: #ffcc00;
-            color: #000;
+
+        .navbar-brand {
             font-weight: bold;
+            color: #58a6ff !important;
+        }
+
+        .addbutton {
+            background-color: #238636;
+            color: white;
+            font-weight: 600;
             border: none;
         }
-        .navbar {
-            background: #000 !important;
-            border-bottom: 2px solid #ffcc00;
+
+        .addbutton:hover {
+            background-color: #2ea043;
+        }
+
+        .moviecard {
+            background: #1c2128;
+            border-radius: 12px;
+            transition: 0.3s;
+            border: 1px solid #30363d;
+            overflow: hidden;
+        }
+
+        .moviecard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(34, 197, 94, 0.15);
+        }
+
+        .movieposter {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .movie-details h4 {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+
+        .movie-details p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .action-buttons a {
+            padding: 5px 12px;
+            font-size: 14px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .btn-danger {
+            background-color: #da3633;
+            border: none;
+        }
+
+        .btn-warning {
+            background-color: #d29922;
+            border: none;
+            color: #000;
+        }
+
+        .btn-danger:hover {
+            background-color: #f85149;
+        }
+
+        .btn-warning:hover {
+            background-color: #e3b341;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
+    <nav class="navbar navbar-expand-lg px-4">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
             <a class="navbar-brand" href="#">🎬 MovieFlix</a>
-            <a href="/addmoviepage" class="btn addbutton">Add Movie</a>
+            <a href="/addmoviepage" class="btn addbutton">➕ Add Movie</a>
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="container mt-5">
         <div class="row">
-            <% movies.forEach(function(movie){ %>
-                <div class="col-md-4 mb-4">
-                    <div class="moviecard h-100">
-                        <img src="<%= movie.poster %>" class="movieposter w-100">
-                        <div class="p-3">
-                            <h4><%= movie.name %></h4>
-                            <p>Rating: <%= movie.rating %></p>
-                            <div class="d-flex justify-content-between">
-                                <a href="/removemovie/<%= movie._id %>" class="btn btn-sm btn-danger">Remove</a>
-                                <a href="/editmovie?movieid=<%= movie._id %>" class="btn btn-sm btn-warning">Edit</a>
+            <% if (movies.length === 0) { %>
+                <div class="col-12 text-center">
+                    <h5>No movies found. Add one!</h5>
+                </div>
+            <% } else { %>
+                <% movies.forEach(function(movie){ %>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="moviecard">
+                            <img src="<%= movie.poster %>" alt="Poster" class="movieposter">
+                            <div class="p-3 movie-details">
+                                <h4><%= movie.name %></h4>
+                                <p><strong>Rating:</strong> <%= movie.rating %></p>
+                                <div class="d-flex justify-content-between action-buttons mt-3">
+                                    <a href="/removemovie/<%= movie._id %>" class="btn btn-sm btn-danger">🗑 Remove</a>
+                                    <a href="/editmovie?movieid=<%= movie._id %>" class="btn btn-sm btn-warning">✏️ Edit</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <% }) %>
+                <% }) %>
+            <% } %>
         </div>
     </div>
 
