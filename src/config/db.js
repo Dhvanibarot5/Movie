@@ -1,16 +1,12 @@
 const mongoose = require("mongoose");
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("MongoDB connected successfully");
-  } catch (err) {
-    console.error("MongoDB connection failed:", err.message);
-    process.exit(1);
-  }
-};
+mongoose.connect("mongodb://localhost:27017/MovieDatabase");
 
-module.exports = connectDB;
+const connection = mongoose.connection;
+
+connection.once("open", function (error) {
+  if (error) console.log(error);
+  else console.log("Database connected");
+});
+
+module.exports = connection;
